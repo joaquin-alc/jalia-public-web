@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#020617">
 <title>JALIA — Software · IA · Automatización</title>
 <meta name="description" content="JALIA desarrolla software a medida, inteligencia artificial, chatbots y automatización de procesos para empresas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,71 +11,109 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Sora:wght@300;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#0B0D10;
-  --ink-2:#12151A;
-  --fg:#EDEFF2;
-  --mute:#8A93A0;
-  --signal:#E9A13B;
-  --line:rgba(255,255,255,.10);
+  /* paleta derivada del logo */
+  --ink:#020617;
+  --ink-2:#0B1220;
+  --fg:#E9EEF8;
+  --mute:#94A3B8;
+
+  --sky:#38BDF8;
+  --indigo:#6366F1;
+  --iris:#818CF8;
+  --violet:#C084FC;
+  /* acento cálido: la "A" del logo */
+  --amber:#FBBF24;
+  --ember:#F97316;
+
+  --signal:var(--amber);
+  --line:rgba(148,163,184,.16);
 
   --display:"Sora","Helvetica Neue",Arial,sans-serif;
   --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --logo:system-ui,-apple-system,Roboto,"Segoe UI",sans-serif;
 
   --pad:clamp(22px,6vw,64px);
   --max:1120px;
+  --head:68px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
-  margin:0;background:var(--ink);color:var(--fg);
+  margin:0;color:var(--fg);
+  background:var(--ink);
   font-family:var(--body);font-size:17px;line-height:1.6;font-weight:400;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
+/* halo radial global, mismo espíritu que el fondo del logo */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 0%, #0F172A 0%, #020617 62%);
+}
 h1,h2,h3,p{margin:0}
 a{color:inherit;text-decoration:none}
-::selection{background:var(--signal);color:#12100C}
-:focus-visible{outline:2px solid var(--signal);outline-offset:4px;border-radius:2px}
+section{scroll-margin-top:calc(var(--head) + 8px)}
+::selection{background:var(--amber);color:#150C01}
+:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:2px}
 
 .wrap{width:100%;max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------------- header ---------------- */
+.site{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background .35s ease,border-color .35s ease,backdrop-filter .35s ease;
+  border-bottom:1px solid transparent;
+}
+.site.solid{
+  background:rgba(2,6,23,.72);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom-color:var(--line);
+}
+.head{display:flex;align-items:center;gap:clamp(14px,3vw,40px);height:var(--head)}
+.brand{display:flex;align-items:center;flex:0 0 auto}
+.brand .logo{height:28px;width:auto;display:block;transition:opacity .25s ease}
+.brand:hover .logo{opacity:.82}
+.nav{margin-left:auto;display:flex;gap:clamp(18px,2.6vw,32px);
+  font-size:13.5px;letter-spacing:.04em;color:var(--mute)}
+.nav a{transition:color .25s ease}
+.nav a:hover{color:var(--fg)}
+@media (max-width:720px){ .nav{display:none} }
 
 /* ---------------- hero / tarjeta ---------------- */
 .hero{
   position:relative;min-height:100svh;display:flex;flex-direction:column;
-  justify-content:center;padding-block:clamp(90px,14vh,140px) clamp(60px,10vh,110px);
+  justify-content:center;padding-block:clamp(110px,16vh,160px) clamp(60px,10vh,110px);
   overflow:hidden;
 }
 #net{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* retícula técnica, guiño al fondo del logo */
+.grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(to right, rgba(226,232,240,.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226,232,240,.05) 1px, transparent 1px);
+  background-size:100px 100px;
+  -webkit-mask-image:radial-gradient(72% 62% at 50% 44%, #000 0%, transparent 78%);
+  mask-image:radial-gradient(72% 62% at 50% 44%, #000 0%, transparent 78%);
+}
 .veil{
   position:absolute;inset:0;pointer-events:none;
   background:
-    radial-gradient(90% 70% at 50% 46%, rgba(233,161,59,.10), transparent 60%),
-    radial-gradient(120% 100% at 50% 50%, rgba(11,13,16,.55) 30%, rgba(11,13,16,.94) 88%);
+    radial-gradient(64% 52% at 50% 40%, rgba(251,191,36,.12), transparent 62%),
+    radial-gradient(58% 48% at 74% 62%, rgba(192,132,252,.10), transparent 64%),
+    radial-gradient(52% 44% at 26% 64%, rgba(56,189,248,.06), transparent 66%),
+    radial-gradient(120% 100% at 50% 50%, rgba(2,6,23,.50) 30%, rgba(2,6,23,.94) 88%);
 }
 .hero-in{position:relative;z-index:2;text-align:center}
 
-.wordmark{
-  font-family:var(--display);font-weight:700;
-  font-size:clamp(64px,16.5vw,232px);
-  line-height:.9;letter-spacing:.02em;
-  color:#fff;margin:0;
-  display:block;
-}
-.wordmark .i{color:var(--signal)}
-
-.tagline{
-  font-family:var(--display);font-weight:300;
-  font-size:clamp(11px,1.5vw,15px);
-  letter-spacing:.42em;text-transform:uppercase;
-  color:var(--mute);
-  margin-top:clamp(18px,2.6vw,30px);
-  padding-left:.42em;
-}
+.lockup{margin:0;line-height:0}
+.lockup svg{width:min(90vw,820px);height:auto;display:block;margin-inline:auto}
 
 .claim{
   font-family:var(--display);font-weight:500;
   font-size:clamp(21px,3.2vw,38px);
   line-height:1.22;letter-spacing:-.02em;
-  max-width:19ch;margin:clamp(44px,6vw,72px) auto 0;
+  max-width:19ch;margin:clamp(40px,5.4vw,64px) auto 0;
 }
 .sub{
   font-size:clamp(15px,1.6vw,17.5px);color:var(--mute);
@@ -86,16 +125,20 @@ a{color:inherit;text-decoration:none}
   display:inline-flex;align-items:center;gap:12px;
   font-family:var(--body);font-weight:600;font-size:14.5px;letter-spacing:.03em;
   padding:15px 30px;border-radius:100px;
-  background:var(--signal);color:#12100C;border:1px solid var(--signal);
-  transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,background .3s ease;
+  background:linear-gradient(95deg,var(--amber) 0%,var(--ember) 100%);
+  color:#180D01;border:1px solid transparent;
+  box-shadow:0 10px 30px -16px rgba(249,115,22,.85);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,filter .3s ease;
 }
 .cta .arw{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
-.cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px -14px rgba(233,161,59,.75);background:#F0AE50}
+.cta:hover{transform:translateY(-2px);box-shadow:0 16px 38px -14px rgba(249,115,22,.55);filter:saturate(1.06) brightness(1.06)}
 .cta:hover .arw{transform:translateX(5px)}
+.cta-sm{padding:10px 20px;font-size:13px;flex:0 0 auto}
+@media (max-width:420px){ .cta-sm{padding:9px 16px;font-size:12.5px} }
 
 .scroll{
   position:absolute;left:0;right:0;bottom:26px;z-index:2;text-align:center;
-  font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(138,147,160,.55);
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(148,163,184,.55);
 }
 .scroll span{display:inline-block;animation:bob 2.8s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
@@ -121,7 +164,7 @@ a{color:inherit;text-decoration:none}
 }
 .item p{color:var(--mute);font-size:clamp(15px,1.6vw,17px);max-width:48ch}
 .item:hover{padding-left:14px}
-.item:hover h2{color:var(--signal)}
+.item:hover h2{color:var(--amber)}
 @media (max-width:720px){
   .item{grid-template-columns:1fr;gap:8px}
   .item:hover{padding-left:0}
@@ -130,7 +173,7 @@ a{color:inherit;text-decoration:none}
 .stack{
   margin-top:clamp(38px,4.6vw,56px);
   display:flex;flex-wrap:wrap;gap:8px 22px;
-  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(138,147,160,.72);
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(148,163,184,.75);
 }
 
 /* ---------------- quiénes somos ---------------- */
@@ -155,7 +198,7 @@ a{color:inherit;text-decoration:none}
   border:1px solid var(--line);
   margin-top:clamp(38px,4.6vw,58px);
 }
-.value{background:var(--ink);padding:clamp(20px,2.6vw,28px)}
+.value{background:rgba(8,13,28,.78);padding:clamp(20px,2.6vw,28px)}
 .value h3{
   font-family:var(--display);font-weight:500;font-size:17px;letter-spacing:-.01em;
   margin-bottom:8px;
@@ -174,7 +217,9 @@ a{color:inherit;text-decoration:none}
 }
 .close::before{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(55% 70% at 50% 100%, rgba(233,161,59,.13), transparent 62%);
+  background:
+    radial-gradient(48% 66% at 36% 100%, rgba(251,191,36,.15), transparent 62%),
+    radial-gradient(48% 66% at 66% 100%, rgba(192,132,252,.13), transparent 62%);
 }
 .close .wrap{position:relative;z-index:2}
 .close h2{
@@ -187,17 +232,18 @@ a{color:inherit;text-decoration:none}
   display:block;margin-top:26px;font-size:14px;letter-spacing:.06em;
   color:var(--mute);transition:color .25s ease;
 }
-.mailto:hover{color:var(--signal)}
+.mailto:hover{color:var(--amber)}
 
 /* ---------------- footer ---------------- */
 footer{border-top:1px solid var(--line);padding-block:34px 30px}
 .foot{
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 30px;
-  font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(138,147,160,.7);
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(148,163,184,.7);
 }
-.foot-brand{font-family:var(--display);font-weight:600;letter-spacing:.22em;color:var(--fg)}
+.foot .logo{height:20px;width:auto;display:block;opacity:.9}
 .foot-legal{display:flex;flex-wrap:wrap;gap:20px}
-.foot-legal a:hover{color:var(--signal)}
+.foot-legal a{transition:color .25s ease}
+.foot-legal a:hover{color:var(--amber)}
 
 /* ---------------- reveal ---------------- */
 .rev{opacity:0;transform:translateY(14px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
@@ -212,14 +258,85 @@ footer{border-top:1px solid var(--line);padding-block:34px 30px}
 </head>
 <body>
 
+<!-- ============ DEFINICIONES DEL LOGO (gradientes + glow) ============ -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <linearGradient id="jaliaText" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <!-- acento frío: la "I" -->
+    <linearGradient id="jaliaIris" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="290" y2="0">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <!-- acento cálido: la "A" -->
+    <linearGradient id="jaliaAmber" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="290" y2="0">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+    <filter id="jaliaGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ============ HEADER ============ -->
+<header class="site" id="top">
+  <div class="wrap head">
+    <a class="brand" href="#inicio" aria-label="JALIA — inicio">
+      <!-- logo compacto: wordmark + destello -->
+      <svg class="logo" viewBox="0 0 312 84" role="img" aria-label="JALIA">
+        <text x="0" y="76"
+              font-family="system-ui, -apple-system, Roboto, sans-serif"
+              font-weight="900" font-size="82"
+              textLength="268" lengthAdjust="spacing"
+              fill="url(#jaliaText)">JAL<tspan fill="url(#jaliaIris)">I</tspan><tspan fill="url(#jaliaAmber)">A</tspan></text>
+        <g transform="translate(284,2) scale(0.7)" filter="url(#jaliaGlow)">
+          <path d="M0,15 C10,15 15,10 15,0 C15,10 20,15 30,15 C20,15 15,20 15,30 C15,20 10,15 0,15 Z" fill="#fbbf24"/>
+        </g>
+      </svg>
+    </a>
+
+    <nav class="nav">
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <a class="cta cta-sm" href="mailto:hola@jalia.es?subject=Hablemos">Hablemos</a>
+  </div>
+</header>
+
 <!-- ============ TARJETA / HERO ============ -->
 <section class="hero" id="inicio">
   <canvas id="net" aria-hidden="true"></canvas>
+  <div class="grid" aria-hidden="true"></div>
   <div class="veil" aria-hidden="true"></div>
 
   <div class="wrap hero-in">
-    <h1 class="wordmark">JAL<span class="i">I</span>A</h1>
-    <p class="tagline">Software · AI · Automation</p>
+    <h1 class="lockup">
+      <span class="sr">JALIA — Intelligence &amp; Software</span>
+      <!-- logo completo: wordmark + bajada + destello -->
+      <svg viewBox="0 0 440 146" aria-hidden="true" focusable="false">
+        <text x="4" y="92"
+              font-family="system-ui, -apple-system, Roboto, sans-serif"
+              font-weight="900" font-size="82"
+              textLength="268" lengthAdjust="spacing"
+              fill="url(#jaliaText)">JAL<tspan fill="url(#jaliaIris)">I</tspan><tspan fill="url(#jaliaAmber)">A</tspan></text>
+
+        <text x="6" y="134"
+              font-family="system-ui, -apple-system, Roboto, sans-serif"
+              font-weight="600" font-size="16"
+              textLength="418" lengthAdjust="spacing"
+              fill="#94a3b8" opacity="0.9">INTELLIGENCE &amp; SOFTWARE</text>
+
+        <g transform="translate(372,6) scale(0.7)" filter="url(#jaliaGlow)">
+          <path d="M0,15 C10,15 15,10 15,0 C15,10 20,15 30,15 C20,15 15,20 15,30 C15,20 10,15 0,15 Z" fill="#fbbf24"/>
+        </g>
+      </svg>
+    </h1>
 
     <p class="claim">Construimos software. Automatizamos procesos. Potenciamos tu negocio con IA.</p>
     <p class="sub">Soluciones de software e inteligencia artificial a medida para automatizar tareas y mejorar procesos.</p>
@@ -309,7 +426,18 @@ footer{border-top:1px solid var(--line);padding-block:34px 30px}
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="wrap foot">
-    <span class="foot-brand">JALIA</span>
+    <a href="#top" aria-label="JALIA — volver arriba">
+      <svg class="logo" viewBox="0 0 312 84" role="img" aria-label="JALIA">
+        <text x="0" y="76"
+              font-family="system-ui, -apple-system, Roboto, sans-serif"
+              font-weight="900" font-size="82"
+              textLength="268" lengthAdjust="spacing"
+              fill="url(#jaliaText)">JAL<tspan fill="url(#jaliaIris)">I</tspan><tspan fill="url(#jaliaAmber)">A</tspan></text>
+        <g transform="translate(284,2) scale(0.7)">
+          <path d="M0,15 C10,15 15,10 15,0 C15,10 20,15 30,15 C20,15 15,20 15,30 C15,20 10,15 0,15 Z" fill="#fbbf24"/>
+        </g>
+      </svg>
+    </a>
     <div class="foot-legal">
       <a href="#">Aviso legal</a>
       <a href="#">Privacidad</a>
@@ -323,6 +451,11 @@ footer{border-top:1px solid var(--line);padding-block:34px 30px}
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* header sólido al hacer scroll */
+  var head = document.querySelector('.site');
+  function onScroll(){ head.classList.toggle('solid', scrollY > 24); }
+  onScroll(); addEventListener('scroll', onScroll, {passive:true});
 
   /* reveal */
   var items = document.querySelectorAll('.rev');
@@ -339,6 +472,7 @@ footer{border-top:1px solid var(--line);padding-block:34px 30px}
   var cv = document.getElementById('net');
   if(!cv) return;
   var ctx = cv.getContext('2d'), W=0,H=0,nodes=[],pulses=[],raf=null,frame=0,maxD=170;
+  var PAL = ['251,191,36','249,115,22','192,132,252','129,140,248'];   /* amber · ember · violet · iris */
 
   function rnd(a,b){ return a + Math.random()*(b-a); }
 
@@ -350,7 +484,7 @@ footer{border-top:1px solid var(--line);padding-block:34px 30px}
     maxD = Math.min(200, Math.max(120, W*0.12));
     var n = Math.round(Math.min(44, Math.max(16, (W*H)/26000)));
     nodes = [];
-    for (var i=0;i<n;i++) nodes.push({x:rnd(0,W),y:rnd(0,H),vx:rnd(-.09,.09),vy:rnd(-.09,.09),r:rnd(1,2),hot:Math.random()<.10});
+    for (var i=0;i<n;i++) nodes.push({x:rnd(0,W),y:rnd(0,H),vx:rnd(-.09,.09),vy:rnd(-.09,.09),r:rnd(1,2),hot:Math.random()<.16,c:PAL[Math.floor(Math.random()*PAL.length)]});
     pulses = [];
     for (var p=0;p<3;p++) spawn();
   }
@@ -359,7 +493,7 @@ footer{border-top:1px solid var(--line);padding-block:34px 30px}
     if (nodes.length < 2) return;
     var a = Math.floor(Math.random()*nodes.length), b = a;
     while (b === a) b = Math.floor(Math.random()*nodes.length);
-    pulses.push({a:a,b:b,t:0,sp:rnd(.0018,.004)});
+    pulses.push({a:a,b:b,t:0,sp:rnd(.0018,.004),c:PAL[Math.floor(Math.random()*PAL.length)]});
   }
 
   function draw(){
@@ -373,13 +507,13 @@ footer{border-top:1px solid var(--line);padding-block:34px 30px}
       for (j=i+1;j<nodes.length;j++){
         B = nodes[j]; dx=A.x-B.x; dy=A.y-B.y; d=Math.sqrt(dx*dx+dy*dy);
         if (d < maxD){
-          ctx.strokeStyle = 'rgba(150,170,195,'+((1-d/maxD)*.20).toFixed(3)+')';
+          ctx.strokeStyle = 'rgba(148,138,196,'+((1-d/maxD)*.22).toFixed(3)+')';
           ctx.lineWidth = 1;
           ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke();
         }
       }
       ctx.beginPath(); ctx.arc(A.x,A.y,A.r,0,6.2832);
-      ctx.fillStyle = A.hot ? 'rgba(233,161,59,.75)' : 'rgba(190,205,222,.42)';
+      ctx.fillStyle = A.hot ? 'rgba('+A.c+',.8)' : 'rgba(148,163,184,.42)';
       ctx.fill();
     }
     for (var p=pulses.length-1;p>=0;p--){
@@ -389,9 +523,9 @@ footer{border-top:1px solid var(--line);padding-block:34px 30px}
       if (q.t>=1){ pulses.splice(p,1); spawn(); continue; }
       var x=N1.x+(N2.x-N1.x)*q.t, y=N1.y+(N2.y-N1.y)*q.t;
       var g=ctx.createRadialGradient(x,y,0,x,y,10);
-      g.addColorStop(0,'rgba(233,161,59,.75)'); g.addColorStop(1,'rgba(233,161,59,0)');
+      g.addColorStop(0,'rgba('+q.c+',.75)'); g.addColorStop(1,'rgba('+q.c+',0)');
       ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,10,0,6.2832); ctx.fill();
-      ctx.fillStyle='rgba(255,224,180,.9)'; ctx.beginPath(); ctx.arc(x,y,1.6,0,6.2832); ctx.fill();
+      ctx.fillStyle='rgba(255,243,222,.92)'; ctx.beginPath(); ctx.arc(x,y,1.6,0,6.2832); ctx.fill();
     }
     raf = requestAnimationFrame(draw);
   }
@@ -401,7 +535,7 @@ footer{border-top:1px solid var(--line);padding-block:34px 30px}
     for (var i=0;i<nodes.length;i++){
       var A=nodes[i];
       ctx.beginPath(); ctx.arc(A.x,A.y,A.r,0,6.2832);
-      ctx.fillStyle = A.hot ? 'rgba(233,161,59,.7)' : 'rgba(190,205,222,.4)';
+      ctx.fillStyle = A.hot ? 'rgba('+A.c+',.7)' : 'rgba(148,163,184,.4)';
       ctx.fill();
     }
   }
